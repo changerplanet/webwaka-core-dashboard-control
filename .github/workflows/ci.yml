@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Validate Module Manifest
+        run: |
+          if [ ! -f "module.manifest.json" ]; then
+            echo "Error: module.manifest.json not found"
+            exit 1
+          fi
+          
+          # Validate JSON syntax
+          cat module.manifest.json | python3 -m json.tool > /dev/null
+          
+          echo "✅ Module manifest is valid"
+      
+      - name: Check Governance Files
+        run: |
+          required_files=(
+            "README.md"
+            "module.manifest.json"
+            "module.contract.md"
+            "CHANGELOG.md"
+            "OWNERS.md"
+            "SECURITY.md"
+          )
+          
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing required file: $file"
+              exit 1
+            fi
+            echo "✅ Found: $file"
+          done
+          
+          echo "✅ All governance files present"

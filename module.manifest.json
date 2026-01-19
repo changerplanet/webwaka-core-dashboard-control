@@ -1,0 +1,14 @@
+{
+  "moduleId": "webwaka-core-dashboard-control",
+  "name": "WebWaka Core Dashboard Control",
+  "version": "0.1.0",
+  "class": "core",
+  "description": "Dashboard lifecycle and privilege-driven UI control",
+  "capabilities": [],
+  "dependencies": [],
+  "metadata": {
+    "author": "ChangerPlanet",
+    "license": "Proprietary",
+    "repository": "https://github.com/changerplanet/webwaka-core-dashboard-control"
+  }
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebWaka Core Dashboard Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+        .badge {
+            display: inline-block;
+            background: #0f3460;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+        .badge.core {
+            background: #e94560;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            color: #00d4ff;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+        .card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+        }
+        .status-box {
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid #e94560;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .status-box p {
+            margin: 5px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WebWaka Core Dashboard Control</h1>
+            <span class="badge core">Core Module</span>
+            <span class="badge">v0.1.0</span>
+            <span class="badge">Substrate</span>
+        </header>
+
+        <div class="card">
+            <h2>Purpose</h2>
+            <p>Dashboard lifecycle and privilege-driven UI control for the WebWaka Modular Ecosystem.</p>
+        </div>
+
+        <div class="card">
+            <h2>Responsibilities</h2>
+            <ul>
+                <li>Dashboard registration and lifecycle management</li>
+                <li>Privilege-driven UI composition and rendering</li>
+                <li>Dashboard access control and entitlement verification</li>
+                <li>Dashboard state management and persistence</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Constitutional Compliance</h2>
+            <p>This module operates under the authority of the <strong>WebWaka Ecosystem Constitution v1.3.1 (Ratified)</strong>.</p>
+        </div>
+
+        <div class="card">
+            <div class="status-box">
+                <p><strong>Status:</strong> Substrate Module</p>
+                <p>Implementation pending constitutional requirements</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Proprietary - ChangerPlanet</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -4,8 +4,18 @@
   "version": "0.1.0",
   "class": "core",
   "description": "Dashboard lifecycle and privilege-driven UI control",
-  "capabilities": [],
-  "dependencies": [],
+  "capabilities": [
+    "dashboard:resolve",
+    "dashboard:snapshot.generate",
+    "dashboard:snapshot.verify"
+  ],
+  "dependencies": [
+    "webwaka-core-identity",
+    "webwaka-core-permissions",
+    "webwaka-core-entitlements",
+    "webwaka-core-feature-flags",
+    "webwaka-core-branding"
+  ],
   "metadata": {
     "author": "ChangerPlanet",
     "license": "Proprietary",

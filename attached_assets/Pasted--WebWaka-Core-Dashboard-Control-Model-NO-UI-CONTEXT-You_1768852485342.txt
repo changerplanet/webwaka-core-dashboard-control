@@ -1,0 +1,252 @@
+
+WebWaka Core Dashboard Control Model (NO UI)
+
+⸻
+
+CONTEXT
+
+You are implementing Phase 4A of the WebWaka Modular Rebuild, governed by the WebWaka Ecosystem Constitution v1.4 (Ratified).
+
+This phase introduces the Dashboard Control Model, which is the single authoritative logic layer that determines:
+	•	Which dashboards exist
+	•	Which menus/sections appear
+	•	Why they appear
+	•	For whom they appear
+
+All future dashboards (Super Admin, Partner, Tenant, Staff, etc.) are pure consumers of this model.
+
+⸻
+
+REPOSITORY
+	•	GitHub Repo: changerplanet/webwaka-core-dashboard-control
+	•	Language: TypeScript only
+	•	Type: Headless core library
+	•	Platform: Replit
+	•	Branch: main (branch protection disabled)
+	•	NO UI
+	•	NO API server
+	•	NO database
+	•	NO Neon usage
+
+⸻
+
+STRICT SCOPE BOUNDARIES (NON-NEGOTIABLE)
+
+🚫 Do NOT build any UI
+🚫 Do NOT use React / Vue / Next
+🚫 Do NOT hardcode menus in code consumers
+🚫 Do NOT introduce new auth, pricing, or entitlement logic
+🚫 Do NOT bypass existing core modules
+🚫 Do NOT proceed beyond Phase 4A
+
+This phase is pure orchestration logic only.
+
+⸻
+
+CONSTITUTIONAL DEPENDENCIES (READ-ONLY)
+
+This module MUST consume outputs from existing cores without re-implementing them:
+	•	webwaka-core-identity
+	•	webwaka-core-permissions
+	•	webwaka-core-entitlements
+	•	webwaka-core-feature-flags
+	•	webwaka-core-branding
+
+Assume these exist and expose snapshots / evaluators.
+
+⸻
+
+PURPOSE OF THIS MODULE
+
+To produce deterministic, explainable dashboard definitions that:
+	•	Automatically show/hide menus
+	•	Are fully driven by:
+	•	permissions
+	•	entitlements
+	•	feature flags
+	•	tenant / partner context
+	•	Can be evaluated online or offline
+	•	Can be snapshotted and verified
+
+⸻
+
+DOMAIN MODELS (ZOD-VALIDATED)
+
+You MUST implement at least the following models:
+
+1. DashboardDeclaration
+
+{
+  dashboardId
+  label
+  allowedSubjects
+  allowedTenants?
+  allowedPartners?
+  requiredCapabilities?
+  requiredEntitlements?
+  requiredFeatures?
+  sections: DashboardSection[]
+}
+
+2. DashboardSection
+
+{
+  sectionId
+  label
+  icon?
+  requiredCapabilities?
+  requiredEntitlements?
+  requiredFeatures?
+  children?: DashboardSection[]
+}
+
+3. DashboardContext
+
+{
+  subjectId
+  subjectType
+  tenantId
+  partnerId?
+  roles
+  evaluationTime
+}
+
+4. ResolvedDashboard
+
+{
+  dashboardId
+  visibleSections
+  hiddenSections
+  reasons
+}
+
+5. DashboardSnapshot
+
+{
+  snapshotId
+  dashboardId
+  subjectId
+  tenantId
+  resolvedSections
+  hiddenSections
+  reasons
+  checksum
+  expiresAt?
+}
+
+
+⸻
+
+CORE ENGINE APIS (REQUIRED)
+
+You MUST implement the following pure functions:
+
+1. resolveDashboard()
+
+resolveDashboard(
+  declaration,
+  context,
+  permissionResult,
+  entitlementSnapshot,
+  featureSnapshot
+): ResolvedDashboard
+
+2. generateDashboardSnapshot()
+
+generateDashboardSnapshot(
+  declaration,
+  resolvedDashboard,
+  context
+): DashboardSnapshot
+
+3. verifyDashboardSnapshot()
+
+verifyDashboardSnapshot(snapshot): boolean
+
+4. evaluateFromSnapshot()
+
+evaluateFromSnapshot(
+  snapshot,
+  evaluationTime?
+): ResolvedDashboard
+
+
+⸻
+
+INVARIANTS (MUST BE ENFORCED)
+	1.	Precedence
+	•	Permissions gate first
+	•	Then entitlements
+	•	Then feature flags
+	2.	Determinism
+	•	Same inputs → same output (prove with repeated tests)
+	3.	Tenant Isolation
+	•	Cross-tenant dashboard resolution MUST throw error
+	4.	Explainability
+	•	Every hidden section must include a reason
+	5.	Snapshot Integrity
+	•	SHA-256 checksum
+	•	Any tampering must be detectable
+	6.	Offline-Safety
+	•	Snapshots must evaluate without network access
+
+⸻
+
+CAPABILITIES TO REGISTER
+
+In module.manifest.json:
+
+[
+  "dashboard:resolve",
+  "dashboard:snapshot.generate",
+  "dashboard:snapshot.verify"
+]
+
+
+⸻
+
+TESTING REQUIREMENTS
+
+You MUST provide tests that prove:
+	•	✅ Menus appear automatically based on entitlements
+	•	✅ Menus disappear when entitlement is revoked
+	•	✅ Individual override beats group rule
+	•	✅ Same inputs evaluated 10× produce identical output
+	•	✅ Cross-tenant access throws error
+	•	✅ Snapshot verification detects tampering
+	•	✅ Snapshot evaluation matches live evaluation
+
+Coverage: ≥ 80%
+
+⸻
+
+HARD STOP CONDITION (MANDATORY)
+
+A Suite can request a dashboard declaration and receive a deterministic, explainable, verifiable dashboard structure without embedding any authorization logic in the UI.
+
+You MUST include a test named clearly proving this.
+
+⸻
+
+DELIVERABLES
+	•	Zod-validated domain models
+	•	Pure resolution engine
+	•	Snapshot generator + verifier
+	•	Capability registration
+	•	Tests + coverage report
+	•	Updated module.contract.md
+
+⸻
+
+FINAL INSTRUCTIONS
+
+After implementation:
+
+⛔ STOP
+⛔ Do NOT proceed to UI
+⛔ Do NOT implement Super Admin screens
+⛔ Await explicit authorization for Phase 4B
+
+⸻
+
+Begin Phase 4A implementation now.

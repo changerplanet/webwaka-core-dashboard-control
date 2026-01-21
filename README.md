@@ -4,6 +4,15 @@
 **Class:** `core`  
 **Version:** `0.1.0`
 
+## Installation
+
+```bash
+npm install @webwaka/core-dashboard-control
+```
+
+**Note**: This package is published to npm registry. GitHub-based installs are no longer supported.
+
+
 ## Purpose
 
 Dashboard lifecycle and privilege-driven UI control for the WebWaka Modular Ecosystem.

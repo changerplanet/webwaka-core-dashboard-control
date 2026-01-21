@@ -1,0 +1,22 @@
+# Source files
+src/
+tests/
+__tests__/
+*.test.ts
+*.test.js
+tsconfig.json
+vitest.config.ts
+.replit
+replit.md
+.vercel/
+attached_assets/
+OWNERS.md
+SECURITY.md
+module.contract.md
+.vscode/
+.idea/
+.git/
+.gitignore
+.github/
+.env
+*.log

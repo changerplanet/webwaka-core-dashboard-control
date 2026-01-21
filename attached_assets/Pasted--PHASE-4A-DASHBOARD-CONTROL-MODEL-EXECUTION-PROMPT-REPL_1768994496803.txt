@@ -1,0 +1,244 @@
+
+🔐 PHASE 4A — DASHBOARD CONTROL MODEL
+
+EXECUTION PROMPT (REPLIT)
+
+⸻
+
+CONTEXT (READ CAREFULLY)
+
+You are implementing Phase 4A — WebWaka Dashboard Control Model.
+
+This is a CORE, HEADLESS, DECLARATIVE CONTROL ENGINE.
+
+It determines WHAT dashboard sections are visible based on:
+	•	Permissions
+	•	Entitlements
+	•	Feature Flags
+
+🚫 This is NOT a UI
+🚫 This is NOT a dashboard
+🚫 This is NOT role-based
+🚫 This is NOT hardcoded logic
+
+This engine will be consumed by:
+	•	Super Admin Dashboard
+	•	Partner Dashboard
+	•	Tenant Dashboard
+	•	Suite dashboards (POS, SVM, MVM, etc.)
+
+⸻
+
+REPOSITORY (MANDATORY)
+
+You MUST work in the following repository:
+
+changerplanet/webwaka-core-dashboard-control
+
+CRITICAL RULE
+
+👉 CLONE THE REPOSITORY FIRST
+	•	Do NOT scaffold a new project
+	•	Do NOT add placeholder files
+	•	Do NOT generate templates
+
+If the repo is empty:
+	•	Clone it as-is
+	•	Then implement exactly what is specified below
+
+If the repo is NOT cloned, STOP and clone it first.
+
+⸻
+
+SCOPE (STRICT)
+
+You are building a pure TypeScript library that provides:
+
+✔ Declarative Dashboard Resolution
+
+✔ Deterministic Evaluation
+
+✔ Offline-safe Snapshots
+
+✔ Explainable Visibility Decisions
+
+⸻
+
+❌ OUT OF SCOPE (NON-NEGOTIABLE)
+	•	❌ No UI
+	•	❌ No React / Vue / HTML
+	•	❌ No CSS
+	•	❌ No dashboards
+	•	❌ No persistence
+	•	❌ No API server
+	•	❌ No Date.now()
+	•	❌ No random values
+	•	❌ No role checks
+	•	❌ No hardcoded permissions
+
+⸻
+
+DOMAIN MODELS (ZOD-VALIDATED)
+
+You MUST implement:
+
+1️⃣ DashboardDeclaration
+
+id
+sections: DashboardSection[]
+
+2️⃣ DashboardSection
+
+id
+label
+requires?: {
+  permissions?: string[]
+  entitlements?: string[]
+  featureFlags?: string[]
+}
+
+3️⃣ DashboardContext
+
+subjectId
+tenantId
+evaluationTime
+permissions
+entitlements
+featureFlags
+
+4️⃣ ResolvedDashboard
+
+visibleSections
+hiddenSections (with reasons)
+
+5️⃣ DashboardSnapshot
+
+snapshotId
+resolvedDashboard
+checksum
+expiresAt
+
+
+⸻
+
+CORE ENGINE APIs (MANDATORY)
+
+1️⃣ resolveDashboard()
+
+resolveDashboard(
+  declaration: DashboardDeclaration,
+  context: DashboardContext
+): ResolvedDashboard
+
+Rules:
+	•	A section is visible ONLY if ALL required conditions pass
+	•	Missing permission OR entitlement OR feature flag → hidden
+	•	Each hidden section MUST include a reason
+
+⸻
+
+2️⃣ generateDashboardSnapshot()
+
+generateDashboardSnapshot(
+  resolved: ResolvedDashboard,
+  expirationHours: number
+): DashboardSnapshot
+
+Rules:
+	•	SHA-256 checksum
+	•	Deterministic snapshotId
+	•	No system time (use context.evaluationTime)
+
+⸻
+
+3️⃣ verifyDashboardSnapshot()
+
+verifyDashboardSnapshot(snapshot: DashboardSnapshot): boolean
+
+Rules:
+	•	Detect tampering
+	•	Detect expiration
+	•	Fail closed
+
+⸻
+
+4️⃣ evaluateFromSnapshot()
+
+evaluateFromSnapshot(
+  snapshot: DashboardSnapshot
+): ResolvedDashboard | null
+
+Rules:
+	•	Only returns data if snapshot is valid
+	•	Otherwise returns null
+
+⸻
+
+INVARIANTS (MUST BE PROVEN BY TESTS)
+
+1️⃣ Determinism
+→ Same inputs ×10 = identical output
+
+2️⃣ Explainability
+→ Every hidden section has a reason
+
+3️⃣ Tenant Isolation
+→ Cross-tenant context throws error
+
+4️⃣ No Role Logic
+→ No role strings anywhere
+
+5️⃣ Snapshot Integrity
+→ Any mutation fails verification
+
+⸻
+
+TEST REQUIREMENTS
+	•	≥ 80% coverage
+	•	Tests MUST include:
+	•	Permission gating
+	•	Entitlement gating
+	•	Feature flag gating
+	•	Mixed failure reasons
+	•	Snapshot tampering detection
+	•	Offline parity (live vs snapshot)
+
+⸻
+
+CI / BUILD RULES
+	•	npm test MUST fail on test failure
+	•	npm run build MUST pass
+	•	No masked commands (|| true forbidden)
+
+⸻
+
+DELIVERABLE
+
+When complete, provide:
+
+1️⃣ Completion Summary
+2️⃣ Test count + coverage
+3️⃣ Hard-Stop Proof Statement
+4️⃣ Final commit SHA
+
+⸻
+
+⛔ HARD STOP
+
+After completion:
+
+⛔ STOP
+⛔ Do NOT proceed to Phase 4B
+⛔ Await explicit authorization
+
+⸻
+
+ACKNOWLEDGEMENT FORMAT (REQUIRED)
+
+Reply ONLY with:
+
+“Phase 4A acknowledged. Cloning repo and proceeding exactly as instructed.”
+
+Then execute.
+
+⸻

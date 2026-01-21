@@ -1,5 +1,5 @@
 {
-  "name": "webwaka-core-dashboard-control",
+  "name": "@webwaka/core-dashboard-control",
   "version": "0.1.0",
   "description": "Dashboard lifecycle and privilege-driven UI control for WebWaka",
   "main": "dist/index.js",
@@ -25,5 +25,8 @@
   },
   "dependencies": {
     "zod": "^3.25.76"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
